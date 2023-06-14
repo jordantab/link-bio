@@ -1,4 +1,6 @@
-import { VStack, Heading, Box, Avatar } from "@chakra-ui/react";
+import { VStack, Heading, Box, Avatar, IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useRouter } from 'next/router';
 import fs from 'fs';
 import path from 'path';
 import Link from '../components/Link';
@@ -40,11 +42,22 @@ export async function getStaticProps({ params }) {
  * @returns {JSX.Element} - The rendered user page component.
  */
 export default function UserPage({ links, user }) {
-  // Dynamic profile picture URL
+  const router = useRouter();
   const profilePictureUrl = `/profile-pictures/${user}.jpg`;
 
   return (
     <VStack spacing={4} align="center">
+      <IconButton 
+        aria-label="Go back"
+        left={5}
+        top={5}
+        icon={<ArrowBackIcon boxSize="2em" _hover={{color:"black"}}/>} 
+        onClick={() => router.back()} 
+        mb={5}
+        bg="transparent"
+        color="white"
+        alignSelf="flex-start"
+      />
       <Avatar src={profilePictureUrl} mt={10} size="2xl" />
       <Heading size="md" mb={5}>
         @{user}
